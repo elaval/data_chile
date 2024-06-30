@@ -47,13 +47,15 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global init.defaultBranch main  # Ensure the default branch is set to main
 
       - name: Commit processed files
         run: |
           git add data/processed/salud/defunciones
-          git commit -m "Update processed files"
+          git commit -m "Update processed files" || echo "No changes to commit"
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main  # Specify the branch to push to
