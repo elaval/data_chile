@@ -1,0 +1,6 @@
+[core]
+    remote = ine_empleo
+['remote "ine_empleo_mam_2024"']
+    url = https://www.ine.gob.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/2024/csv/ene-2024-04-mam.csv
+['remote "ine_empleo"']
+    url = https://www.ine.gob.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/

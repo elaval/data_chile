@@ -1,0 +1,2 @@
+raw/minsal/deis/DEFUNCIONES_FUENTE_DEIS_1990_2021_CIFRAS_OFICIALES.csv filter=lfs diff=lfs merge=lfs -text
+data/raw/minsal/deis/DEFUNCIONES_FUENTE_DEIS_1990_2021_CIFRAS_OFICIALES.csv filter=lfs diff=lfs merge=lfs -text
