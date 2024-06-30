@@ -5,14 +5,23 @@ import pandas as pd
 import requests
 from zipfile import ZipFile
 import chardet
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
-def download_file(url, save_path):
-    response = requests.get(url)
-    if response.status_code == 200:
-        with open(save_path, 'wb') as f:
-            f.write(response.content)
-    else:
-        print(f"Failed to download file from {url}")
+def download_file(url, dest_path):
+    # Set up session with retries and timeout
+    session = requests.Session()
+    retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
+    session.mount('https://', HTTPAdapter(max_retries=retries))
+
+    try:
+        response = session.get(url, timeout=60)  # Set a longer timeout
+        response.raise_for_status()
+        with open(dest_path, 'wb') as file:
+            file.write(response.content)
+    except requests.exceptions.RequestException as e:
+        print(f"Error downloading file: {e}")
+        raise
 
 def detect_encoding(file_path, num_bytes=1000):
     with open(file_path, 'rb') as f:
@@ -65,4 +74,3 @@ def process_zip_file(url, extract_filename, source_dir, processed_dir, delimiter
         parquet_path = os.path.join(processed_dir, parquet_filename)
         df.to_parquet(parquet_path)
         print(f"Processed {extract_filename} and saved to {parquet_path}")
-
