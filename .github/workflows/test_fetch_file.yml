@@ -21,5 +21,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests  # Ensure requests is installed
 
+      - name: Check network connectivity
+        run: |
+          ping -c 4 google.com
+          ping -c 4 repositoriodeis.minsal.cl
+
       - name: Run test fetch script
-        run: python scritps/test_fetch_file.py
+        run: python scripts/test_fetch_file.py
