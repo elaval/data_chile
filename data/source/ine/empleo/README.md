@@ -4,6 +4,7 @@
 Instituto Nacional de Estadísticas (República de Chile)
 Estadísticas | Mercado Laboral | Ocupación y desocupación
 https://www.ine.gob.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion
+
 ### Archivos específicos
 | Tabla                   | Fuente                                                                                                                                 |
 |-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
