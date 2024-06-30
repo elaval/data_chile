@@ -22,4 +22,4 @@ jobs:
           pip install requests  # Ensure requests is installed
 
       - name: Run test fetch script
-        run: python scritps/test_fetch_file.py
+        run: python scripts/test_fetch_file.py
