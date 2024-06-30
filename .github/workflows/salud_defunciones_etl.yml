@@ -43,3 +43,17 @@ jobs:
           jupyter nbconvert --to script scripts/salud/defunciones/defunciones_create_parquet_files.ipynb
           python scripts/salud/defunciones/defunciones_create_parquet_files.py
           
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Commit processed files
+        run: |
+          git add data/processed/salud/defunciones
+          git commit -m "Update processed files"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
