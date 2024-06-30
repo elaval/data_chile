@@ -6,4 +6,8 @@ matplotlib==3.5.1
 scipy==1.7.3
 seaborn==0.11.2
 requests==2.26.0
-chardet==5.0.0
+urllib3==1.26.5
+chardet==4.0.0
+pyarrow==6.0.1
+fastparquet==0.7.1
+
