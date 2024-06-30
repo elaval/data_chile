@@ -24,6 +24,9 @@ jobs:
       - name: Verify installed packages
         run: pip list
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/data_utils" >> $GITHUB_ENV
+
       - name: Convert and run Jupyter notebook
         run: |
           jupyter nbconvert --to script scripts/salud/defunciones/defunciones_create_parquet_files.ipynb
