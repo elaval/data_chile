@@ -35,7 +35,7 @@ DEFAULT_HEADERS = [
 def get_data_paths():
     # Check if running in the GitHub Actions environment
     if 'GITHUB_ACTIONS' in os.environ:
-        base_path = os.getcwd()
+        base_path = os.path.join(os.getcwd(), 'data')
     else:
         # Assuming your script is in the 'scripts' directory
         base_path = os.path.abspath(os.path.join(os.getcwd(), '../../../data'))
