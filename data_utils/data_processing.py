@@ -27,7 +27,20 @@ def detect_encoding(file_path, num_bytes=1000):
     with open(file_path, 'rb') as f:
         raw_data = f.read(num_bytes)
     result = chardet.detect(raw_data)
-    return result['encoding']
+    encoding = result['encoding']
+
+    # If encoding is detected as 'ascii', try reading more bytes
+    if encoding == 'ascii':
+        with open(file_path, 'rb') as f:
+            raw_data = f.read(5000)  # Read more bytes for better detection
+        result = chardet.detect(raw_data)
+        encoding = result['encoding']
+
+    # Fallback to 'utf-8' if encoding detection is still 'ascii'
+    if encoding == 'ascii':
+        encoding = 'utf-8'
+    
+    return encoding
 
 def read_csv_file(file_path, delimiter=';', header='infer', names=None):
     encoding = detect_encoding(file_path)
@@ -36,6 +49,15 @@ def read_csv_file(file_path, delimiter=';', header='infer', names=None):
         df = pd.read_csv(file_path, sep=delimiter, encoding=encoding, index_col=False, low_memory=False, header=header, names=names)
         print(f"Successfully read file with encoding {encoding}")
         return df
+    except UnicodeDecodeError:
+        print(f"Error reading CSV file {file_path} with encoding {encoding}, trying ISO-8859-1")
+        try:
+            df = pd.read_csv(file_path, sep=delimiter, encoding='ISO-8859-1', index_col=False, low_memory=False, header=header, names=names)
+            print(f"Successfully read file with encoding ISO-8859-1")
+            return df
+        except Exception as e:
+            print(f"Error reading CSV file {file_path} with ISO-8859-1: {e}")
+            return None
     except Exception as e:
         print(f"Error reading CSV file {file_path}: {e}")
         return None

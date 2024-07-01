@@ -1,0 +1,51 @@
+name: Process CSV Files
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+  schedule:
+    - cron: '0 0 * * 1'  # Runs every Monday at midnight
+  push:
+    paths:
+      - 'data/source/salud/defunciones/**'  # Trigger on changes in the source directory
+
+jobs:
+  process-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  # Specify the Python version you need
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Ensure the path is correct
+
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)/data_utils" >> $GITHUB_ENV
+
+      - name: Run data processing script
+        run: python path/to/your_script.py  # Replace with the actual path to your script
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Commit processed files
+        run: |
+          git add data/processed/salud/defunciones
+          git commit -m "Update processed files" || echo "No changes to commit"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main  # Ensure you are pushing to the correct branch
