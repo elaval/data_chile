@@ -31,8 +31,10 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$(pwd)/data_utils" >> $GITHUB_ENV
 
-      - name: Run data processing script
-        run: python path/to/your_script.py  # Replace with the actual path to your script
+      - name: Convert and run Jupyter notebook
+        run: |
+          jupyter nbconvert --to script scripts/ine/empleo/process_datos_encuesta_ene.ipynb
+          python scripts/ine/empleo/process_datos_encuesta_ene.py
 
       - name: Configure Git
         run: |
