@@ -1,0 +1,28 @@
+# Ignore Jupyter Notebook checkpoints
+*-checkpoint.ipynb
+.ipynb_checkpoints/
+
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+*.cpython-3*.pyc
+
+# Ignore environment files
+.env
+.venv
+env/
+venv/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore specific files or directories
+path/to/your_script.py  # Update with your actual script path if needed
+data/source/salud/defunciones/*.zip  # Ignore all zip files in this directory if not needed
+
+# Ignore other temporary files
+*.tmp
+*.log
+*.bak
+*.swp
