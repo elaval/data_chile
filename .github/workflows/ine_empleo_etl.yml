@@ -1,4 +1,4 @@
-name: Salud Defunciones ETL
+name: INE Empleo ETL
 
 on:
   workflow_dispatch:  # Allows manual triggering of the workflow
