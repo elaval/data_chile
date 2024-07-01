@@ -41,9 +41,14 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
+      - name: Commit source files
+        run: |
+          git add data/source/ine/empleo
+          git commit -m "Update source files" || echo "No changes to commit"
+
       - name: Commit processed files
         run: |
-          git add data/processed/salud/defunciones
+          git add data/processed/ine/empleo
           git commit -m "Update processed files" || echo "No changes to commit"
 
       - name: Push changes
